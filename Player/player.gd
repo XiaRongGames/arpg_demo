@@ -22,6 +22,7 @@ func _ready():
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	animationTree.active = true
 	
+func _physics_process(delta):
 	match state:
 		MOVE:
 			move_state(delta)
