@@ -789,20 +789,29 @@ tile_set = SubResource("TileSet_pkg7o")
 [node name="Player" parent="." instance=ExtResource("2_fj7yv")]
 position = Vector2(64, 59)
 
-[node name="Bush" parent="." instance=ExtResource("2_tlwt5")]
+[node name="Bushes" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Bush" parent="Bushes" instance=ExtResource("2_tlwt5")]
 position = Vector2(24, 96)
 
-[node name="Bush2" parent="." instance=ExtResource("2_tlwt5")]
+[node name="Bush2" parent="Bushes" instance=ExtResource("2_tlwt5")]
 position = Vector2(24, 40)
 
-[node name="Bush3" parent="." instance=ExtResource("2_tlwt5")]
+[node name="Bush3" parent="Bushes" instance=ExtResource("2_tlwt5")]
 position = Vector2(112, 40)
 
-[node name="Bush4" parent="." instance=ExtResource("2_tlwt5")]
+[node name="Bush4" parent="Bushes" instance=ExtResource("2_tlwt5")]
 position = Vector2(152, 96)
 
-[node name="Bush5" parent="." instance=ExtResource("2_tlwt5")]
+[node name="Bush5" parent="Bushes" instance=ExtResource("2_tlwt5")]
 position = Vector2(280, 128)
 
-[node name="Bush6" parent="." instance=ExtResource("2_tlwt5")]
+[node name="Bush6" parent="Bushes" instance=ExtResource("2_tlwt5")]
 position = Vector2(280, 104)
+
+[node name="Bush7" parent="Bushes" instance=ExtResource("2_tlwt5")]
+position = Vector2(48, 152)
+
+[node name="Bush8" parent="Bushes" instance=ExtResource("2_tlwt5")]
+position = Vector2(176, 64)
