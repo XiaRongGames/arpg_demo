@@ -22,7 +22,6 @@ func _ready():
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	animationTree.active = true
 	
-func _physics_process(delta):
 	match state:
 		MOVE:
 			move_state(delta)
@@ -45,7 +44,7 @@ func move_state(delta):
 		animationTree.set("parameters/Attack/blend_position", input_vector)
 		animationState.travel("Run")
 		player_velocity = player_velocity.move_toward(input_vector * MAX_SPEED, PLAYER_ACCELERATION * delta)
-		#alternative movement
+		# alternative movement
 		#player_velocity += input_vector * PLAYER_ACCELERATION * delta
 		#player_velocity = player_velocity.limit_length(MAX_SPEED)
 	else:
@@ -60,10 +59,15 @@ func move_state(delta):
 		state = ATTACK
 	
 func attack_state(delta):
-	#velocity = Vector2.ZERO
+	
+	# next two lines enable attack and slide
 	velocity = player_velocity.move_toward(Vector2.ZERO, PLAYER_FRICTION * delta) / PLAYER_ATTACK_FRICTION
 	move_and_slide()
 	animationState.travel("Attack")
+	
+	
 
 func attack_animation_finished():
 	state = MOVE
+	# to zero out extra movement after attacking
+	player_velocity = Vector2.ZERO
