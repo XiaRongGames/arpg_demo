@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://doc25o3q6q3ie"]
+[gd_scene load_steps=13 format=4 uid="uid://doc25o3q6q3ie"]
 
 [ext_resource type="Texture2D" uid="uid://bjacougnp663y" path="res://World/GrassBackground.png" id="1_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://cof7c304vlsdg" path="res://World/DirtTileset.png" id="2_aqk2v"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://co02knftjd2xb" path="res://World/bush.tscn" id="2_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://b0n71lbsat0sw" path="res://World/CliffTileset.png" id="3_036b0"]
 [ext_resource type="PackedScene" uid="uid://22gklf6bmn2p" path="res://World/grass.tscn" id="6_dwbse"]
+[ext_resource type="PackedScene" uid="uid://brtgmn44ruomc" path="res://Enemies/bat.tscn" id="7_pkg7o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_036b0"]
 texture = ExtResource("2_aqk2v")
@@ -892,3 +893,12 @@ position = Vector2(240, 112)
 [node name="Grass17" parent="Grass" instance=ExtResource("6_dwbse")]
 y_sort_enabled = true
 position = Vector2(240, 96)
+
+[node name="Bat" parent="." instance=ExtResource("7_pkg7o")]
+position = Vector2(176, 24)
+
+[node name="Bat2" parent="." instance=ExtResource("7_pkg7o")]
+position = Vector2(32, 128)
+
+[node name="Bat3" parent="." instance=ExtResource("7_pkg7o")]
+position = Vector2(200, 168)
