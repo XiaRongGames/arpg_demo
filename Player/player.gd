@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const PLAYER_ACCELERATION = 500
-const PLAYER_FRICTION = 500
-const PLAYER_ATTACK_FRICTION = 3
-const MAX_SPEED = 80
-const ROLL_SPEED = 120
+@export var PLAYER_ACCELERATION = 500
+@export var  PLAYER_FRICTION = 500
+@export var  PLAYER_ATTACK_FRICTION = 3
+@export var  MAX_SPEED = 80
+@export var  ROLL_SPEED = 120
 
 enum {
 	MOVE,
@@ -20,11 +20,13 @@ var roll_vector = Vector2.RIGHT
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
 @onready var swordHitbox = $HitboxPivot/SwordHitbox
+@onready var playerSwordDamage = swordHitbox.damage
 	
 func _ready():
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
+	print("player sword damage: ", playerSwordDamage)
 	
 func _physics_process(delta):
 	match state:

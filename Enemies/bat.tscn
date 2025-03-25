@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://brtgmn44ruomc"]
+[gd_scene load_steps=14 format=3 uid="uid://brtgmn44ruomc"]
 
 [ext_resource type="Script" uid="uid://dnmhkv3lm07on" path="res://Enemies/bat.gd" id="1_g687e"]
 [ext_resource type="Texture2D" uid="uid://m3cayjpq2kgh" path="res://Enemies/Bat.png" id="1_vut0d"]
 [ext_resource type="Texture2D" uid="uid://cshiyqvbjapfu" path="res://Shadows/SmallShadow.png" id="2_va2ne"]
 [ext_resource type="PackedScene" uid="uid://bbqfuqeahagdl" path="res://HitHurtBoxes/hurt_box.tscn" id="3_va2ne"]
+[ext_resource type="PackedScene" uid="uid://cc01hg0qjdp2n" path="res://stats.tscn" id="5_i84q7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g687e"]
 atlas = ExtResource("1_vut0d")
@@ -63,7 +64,7 @@ script = ExtResource("1_g687e")
 sprite_frames = SubResource("SpriteFrames_srckj")
 animation = &"Fly"
 autoplay = "Fly"
-frame_progress = 0.592385
+frame_progress = 0.199312
 offset = Vector2(0, -12)
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
@@ -79,6 +80,10 @@ collision_mask = 8
 position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_g687e")
 
+[node name="Stats" parent="." instance=ExtResource("5_i84q7")]
+max_health = 3
+
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 
 [editable path="HurtBox"]
