@@ -698,10 +698,10 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_btcbx")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Attack/blend_position = Vector2(0, 0)
-parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Roll/blend_position = Vector2(0, 0)
-parameters/Run/blend_position = Vector2(0, 0)
+parameters/Attack/blend_position = Vector2(1, 0)
+parameters/Idle/blend_position = Vector2(1, 0)
+parameters/Roll/blend_position = Vector2(1, 0)
+parameters/Run/blend_position = Vector2(1, 0)
 
 [node name="HitboxPivot" type="Marker2D" parent="."]
 position = Vector2(0, -4)
