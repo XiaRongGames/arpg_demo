@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://btgk1sojcirfw"]
 
-[ext_resource type="Script" uid="uid://d3v1ibwt6c4f8" path="res://Effects/death_effect.gd" id="1_q5ul0"]
+[ext_resource type="Script" uid="uid://d3v1ibwt6c4f8" path="res://Effects/effect.gd" id="1_q5ul0"]
 [ext_resource type="Texture2D" uid="uid://dx2wffv1ne2f4" path="res://Effects/GrassEffect.png" id="2_dbc5j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hkuqv"]
@@ -42,13 +42,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_ufdyo")
 }],
 "loop": false,
-"name": &"animateDeath",
+"name": &"animate",
 "speed": 15.0
 }]
 
 [node name="GrassEffect" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_k3jo5")
-animation = &"animateDeath"
+animation = &"animate"
 centered = false
 offset = Vector2(-8, -8)
 script = ExtResource("1_q5ul0")

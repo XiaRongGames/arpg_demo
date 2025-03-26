@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cm326akbv3w4t"]
 
 [ext_resource type="Texture2D" uid="uid://bnyuceqhhrlko" path="res://Effects/EnemyDeathEffect.png" id="1_8rqnd"]
-[ext_resource type="Script" uid="uid://d3v1ibwt6c4f8" path="res://Effects/death_effect.gd" id="2_s7yqn"]
+[ext_resource type="Script" uid="uid://d3v1ibwt6c4f8" path="res://Effects/effect.gd" id="2_s7yqn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gk1eg"]
 atlas = ExtResource("1_8rqnd")
@@ -77,12 +77,12 @@ animations = [{
 "texture": SubResource("AtlasTexture_p5djr")
 }],
 "loop": false,
-"name": &"animateDeath",
+"name": &"animate",
 "speed": 15.0
 }]
 
 [node name="EnemyDeathEffect" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_1qkos")
-animation = &"animateDeath"
+animation = &"animate"
 offset = Vector2(0, -8)
 script = ExtResource("2_s7yqn")
