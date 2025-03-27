@@ -74,7 +74,7 @@ func move_state(delta):
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK
 		
-func roll_state(delta):
+func roll_state(_delta):
 	velocity = roll_vector * ROLL_SPEED
 	animationState.travel("Roll")
 	move_and_slide()
@@ -97,7 +97,7 @@ func attack_animation_finished():
 	player_velocity = Vector2.ZERO
 
 
-func _on_hurt_box_area_entered(area: Area2D) -> void:
+func _on_hurt_box_area_entered(_area: Area2D) -> void:
 	if hurtbox.invincible == false:
 		stats.health -= 1
 		hurtbox.start_invincibility(0.5)
