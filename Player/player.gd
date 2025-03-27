@@ -30,6 +30,7 @@ func _ready():
 	swordHitbox.knockback_vector = roll_vector
 	print("player sword damage: ", playerSwordDamage)
 	stats.connect("no_health", Callable(self, "queue_free"))
+	print("player max health: ", stats.health)
 	
 func _physics_process(delta):
 	match state:

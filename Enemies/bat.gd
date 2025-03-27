@@ -2,18 +2,19 @@ extends CharacterBody2D
 
 const EnemyDeathEffect = preload("res://Effects/enemy_death_effect.tscn")
 
-@export var ACCELERATION = 2000
-@export var MAX_SPEED = 500
+@export var ACCELERATION = 300
+@export var MAX_SPEED = 50
 @export var BAT_KNOCKBACK_FRICTION = 200
-@export var BAT_KNOCKBACK_POWER = 120
+@export var BAT_KNOCKBACK_POWER = 80
 enum {
 	IDLE,
 	WANDER,
 	CHASE
 }
 # init state
-var state = IDLE
+var state = CHASE
 
+var bat_velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
 
 @onready var stats = $Stats
@@ -28,10 +29,11 @@ func _physics_process(delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, BAT_KNOCKBACK_FRICTION * delta)
 	velocity = knockback
 	move_and_slide()
+	knockback = velocity
 
 	match state:
 		IDLE:
-			velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION * delta)
+			bat_velocity = bat_velocity.move_toward(Vector2.ZERO, ACCELERATION * delta)
 			seek_player()
 		WANDER:
 			pass
@@ -40,11 +42,17 @@ func _physics_process(delta: float) -> void:
 			if player != null:
 				# old way using math
 				# var direction = (player.global_position - global_position).normalized()
-				var direction = position.direction_to(player.global_position)
-				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
-				
-	sprite.flip_h = velocity.x < 0
+				accelerate_towards_point(player.global_position, delta)
+			else:
+				state = IDLE
+
+	velocity = bat_velocity
 	move_and_slide()
+	
+func accelerate_towards_point(point, delta):
+	var direction = global_position.direction_to(point)
+	bat_velocity = bat_velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
+	sprite.flip_h = bat_velocity.x < 0
 	
 func seek_player():
 	if playerDetectionZone.can_see_player():
