@@ -5,7 +5,7 @@ const EnemyDeathEffect = preload("res://Effects/enemy_death_effect.tscn")
 @export var ACCELERATION = 300
 @export var MAX_SPEED = 50
 @export var BAT_KNOCKBACK_FRICTION = 200
-@export var BAT_KNOCKBACK_POWER = 80
+@export var BAT_KNOCKBACK_POWER = 150
 enum {
 	IDLE,
 	WANDER,
