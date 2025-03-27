@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8h72bb2m1urd"]
+
+[ext_resource type="PackedScene" uid="uid://cc01hg0qjdp2n" path="res://stats.tscn" id="1_qm2ev"]
+
+[node name="PlayerStats" instance=ExtResource("1_qm2ev")]
+max_health = 3

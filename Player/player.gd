@@ -15,18 +15,21 @@ enum {
 var state = MOVE
 var player_velocity = Vector2.ZERO
 var roll_vector = Vector2.RIGHT
+var stats = PlayerStats
 
 @onready var animationPlayer = $AnimationPlayer
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
 @onready var swordHitbox = $HitboxPivot/SwordHitbox
 @onready var playerSwordDamage = swordHitbox.damage
+@onready var hurtbox = $HurtBox
 	
 func _ready():
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
 	print("player sword damage: ", playerSwordDamage)
+	stats.connect("no_health", Callable(self, "queue_free"))
 	
 func _physics_process(delta):
 	match state:
@@ -91,3 +94,10 @@ func attack_animation_finished():
 	state = MOVE
 	# to zero out extra movement after attacking
 	player_velocity = Vector2.ZERO
+
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	if hurtbox.invincible == false:
+		stats.health -= 1
+		hurtbox.start_invincibility(0.5)
+		hurtbox.create_hit_effect()

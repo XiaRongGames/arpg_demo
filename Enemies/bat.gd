@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 const EnemyDeathEffect = preload("res://Effects/enemy_death_effect.tscn")
 
-@export var ACCELERATION = 500
-@export var MAX_SPEED = 50
+@export var ACCELERATION = 2000
+@export var MAX_SPEED = 500
 @export var BAT_KNOCKBACK_FRICTION = 200
 @export var BAT_KNOCKBACK_POWER = 120
 enum {
@@ -19,6 +19,7 @@ var knockback = Vector2.ZERO
 @onready var stats = $Stats
 @onready var playerDetectionZone = $PlayerDetectionZone
 @onready var sprite = $AnimatedSprite
+@onready var hurtbox = $HurtBox
 
 func _ready() -> void:
 	print("bat max health: ", stats.max_health)
@@ -27,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, BAT_KNOCKBACK_FRICTION * delta)
 	velocity = knockback
 	move_and_slide()
-	
+
 	match state:
 		IDLE:
 			velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION * delta)
@@ -58,6 +59,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	# normalized direction knockback
 	var direction = ( position - area.owner.position ).normalized()
 	knockback = direction * BAT_KNOCKBACK_POWER
+	hurtbox.create_hit_effect()
 	print("bat current health: ", stats.health)
 
 func _on_stats_no_health() -> void:
