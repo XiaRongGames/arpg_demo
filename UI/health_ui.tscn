@@ -13,7 +13,7 @@ script = ExtResource("1_nc0x1")
 
 [node name="HeartUIEmpty" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 59.0
+offset_right = 45.0
 offset_bottom = 11.0
 texture = ExtResource("2_q726p")
 expand_mode = 1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=53 format=3 uid="uid://cb7b7n65gkkj3"]
+[gd_scene load_steps=54 format=3 uid="uid://cb7b7n65gkkj3"]
 
 [ext_resource type="Script" uid="uid://c6hocg8axc4w5" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://dny2rwd7610x0" path="res://Player/Player.png" id="2_btcbx"]
+[ext_resource type="Texture2D" uid="uid://cmij48j1rj2aw" path="res://Shadows/MediumShadow.png" id="2_fhl08"]
 [ext_resource type="PackedScene" uid="uid://c6skm7l2epnyp" path="res://HitHurtBoxes/hit_box.tscn" id="3_btcbx"]
 [ext_resource type="Script" uid="uid://cm6yyqbgrq4xg" path="res://Player/sword_hit_box.gd" id="4_gwnis"]
 [ext_resource type="PackedScene" uid="uid://bbqfuqeahagdl" path="res://HitHurtBoxes/hurt_box.tscn" id="5_k53q1"]
@@ -686,12 +687,17 @@ height = 20.0
 collision_layer = 2
 script = ExtResource("1_4ntmi")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("2_fhl08")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -9)
 texture = ExtResource("2_btcbx")
 hframes = 60
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_tlwt5")
 
@@ -709,6 +715,7 @@ parameters/Roll/blend_position = Vector2(1, 0)
 parameters/Run/blend_position = Vector2(1, 0)
 
 [node name="HitboxPivot" type="Marker2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 
 [node name="SwordHitbox" parent="HitboxPivot" instance=ExtResource("3_btcbx")]
@@ -722,6 +729,7 @@ shape = SubResource("CapsuleShape2D_gwnis")
 disabled = true
 
 [node name="HurtBox" parent="." instance=ExtResource("5_k53q1")]
+visible = false
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
