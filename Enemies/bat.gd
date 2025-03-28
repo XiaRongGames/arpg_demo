@@ -6,6 +6,7 @@ const EnemyDeathEffect = preload("res://Effects/enemy_death_effect.tscn")
 @export var MAX_SPEED = 50
 @export var BAT_KNOCKBACK_FRICTION = 200
 @export var BAT_KNOCKBACK_POWER = 150
+@export var BAT_SOFT_COLLISION_POWER = 400
 enum {
 	IDLE,
 	WANDER,
@@ -21,6 +22,7 @@ var knockback = Vector2.ZERO
 @onready var playerDetectionZone = $PlayerDetectionZone
 @onready var sprite = $AnimatedSprite
 @onready var hurtbox = $HurtBox
+@onready var softCollision = $SoftCollision
 
 func _ready() -> void:
 	print("bat max health: ", stats.max_health)
@@ -45,7 +47,10 @@ func _physics_process(delta: float) -> void:
 				accelerate_towards_point(player.global_position, delta)
 			else:
 				state = IDLE
-
+	
+	if softCollision.is_colliding():
+		bat_velocity += softCollision.get_push_vector() * delta * BAT_SOFT_COLLISION_POWER
+		
 	velocity = bat_velocity
 	move_and_slide()
 	
