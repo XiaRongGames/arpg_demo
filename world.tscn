@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://doc25o3q6q3ie"]
+[gd_scene load_steps=16 format=4 uid="uid://doc25o3q6q3ie"]
 
 [ext_resource type="Texture2D" uid="uid://bjacougnp663y" path="res://World/GrassBackground.png" id="1_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://cof7c304vlsdg" path="res://World/DirtTileset.png" id="2_aqk2v"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dtjlaqqgv0xh2" path="res://World/tree.tscn" id="7_ioo17"]
 [ext_resource type="PackedScene" uid="uid://brtgmn44ruomc" path="res://Enemies/bat.tscn" id="7_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://c256omvr0q1ww" path="res://UI/health_ui.tscn" id="8_ioo17"]
+[ext_resource type="AudioStream" uid="uid://cvuld0mktldpc" path="res://Music and Sounds/Music.mp3" id="10_wse8f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_036b0"]
 texture = ExtResource("2_aqk2v")
@@ -938,3 +939,8 @@ offset_left = 2.0
 offset_top = 2.0
 offset_right = 42.0
 offset_bottom = 14.0
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_wse8f")
+autoplay = true
+parameters/looping = true
