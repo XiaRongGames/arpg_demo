@@ -8,6 +8,7 @@ const EnemyDeathEffect = preload("res://Effects/enemy_death_effect.tscn")
 @export var BAT_KNOCKBACK_POWER = 150
 @export var BAT_SOFT_COLLISION_POWER = 400
 @export var BAT_WANDER_BUFFER = 4
+@export var BAT_INVINCIBILITY_TIME = 0.4
 
 enum {
 	IDLE,
@@ -26,6 +27,7 @@ var knockback = Vector2.ZERO
 @onready var hurtbox = $HurtBox
 @onready var softCollision = $SoftCollision
 @onready var wanderController = $WanderController
+@onready var animationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	# randomize bat behavior, instead of seeding
@@ -98,6 +100,8 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	var direction = ( position - area.owner.position ).normalized()
 	knockback = direction * BAT_KNOCKBACK_POWER
 	hurtbox.create_hit_effect()
+	hurtbox.start_invincibility(BAT_INVINCIBILITY_TIME)
+	
 	print("bat current health: ", stats.health)
 
 func _on_stats_no_health() -> void:
@@ -105,3 +109,11 @@ func _on_stats_no_health() -> void:
 	var enemyDeathEffect = EnemyDeathEffect.instantiate()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.global_position = global_position
+
+
+func _on_hurt_box_invincibility_started() -> void:
+	animationPlayer.play("Start")
+
+
+func _on_hurt_box_invincibility_ended() -> void:
+	animationPlayer.play("Stop")

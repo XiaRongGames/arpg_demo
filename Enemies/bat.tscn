@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://brtgmn44ruomc"]
+[gd_scene load_steps=27 format=3 uid="uid://brtgmn44ruomc"]
 
 [ext_resource type="Script" uid="uid://dnmhkv3lm07on" path="res://Enemies/bat.gd" id="1_g687e"]
 [ext_resource type="Texture2D" uid="uid://m3cayjpq2kgh" path="res://Enemies/Bat.png" id="1_vut0d"]
+[ext_resource type="Shader" uid="uid://bi112ts3a6of8" path="res://WhiteColor.gdshader" id="2_s2gqn"]
 [ext_resource type="Texture2D" uid="uid://cshiyqvbjapfu" path="res://Shadows/SmallShadow.png" id="2_va2ne"]
 [ext_resource type="PackedScene" uid="uid://bbqfuqeahagdl" path="res://HitHurtBoxes/hurt_box.tscn" id="3_va2ne"]
 [ext_resource type="PackedScene" uid="uid://cc01hg0qjdp2n" path="res://stats.tscn" id="5_i84q7"]
@@ -9,6 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://c6skm7l2epnyp" path="res://HitHurtBoxes/hit_box.tscn" id="7_0g1cs"]
 [ext_resource type="PackedScene" uid="uid://bv7i2667r6qwp" path="res://HitHurtBoxes/soft_collision.tscn" id="8_ppg8i"]
 [ext_resource type="PackedScene" uid="uid://vj5c2xvqu327" path="res://Enemies/wander_controller.tscn" id="9_srckj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2o2nd"]
+resource_local_to_scene = true
+shader = ExtResource("2_s2gqn")
+shader_parameter/active = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g687e"]
 atlas = ExtResource("1_vut0d")
@@ -69,11 +75,67 @@ radius = 5.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_srckj"]
 radius = 4.0
 
+[sub_resource type="Animation" id="Animation_jvndi"]
+resource_name = "Start"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_njepl"]
+resource_name = "Stop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ndrv0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0rdvv"]
+_data = {
+&"RESET": SubResource("Animation_ndrv0"),
+&"Start": SubResource("Animation_jvndi"),
+&"Stop": SubResource("Animation_njepl")
+}
+
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 16
 script = ExtResource("1_g687e")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_2o2nd")
 sprite_frames = SubResource("SpriteFrames_srckj")
 animation = &"Fly"
 autoplay = "Fly"
@@ -116,7 +178,14 @@ shape = SubResource("CircleShape2D_srckj")
 
 [node name="WanderController" parent="." instance=ExtResource("9_srckj")]
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0rdvv")
+}
+
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
+[connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 
 [editable path="HurtBox"]
